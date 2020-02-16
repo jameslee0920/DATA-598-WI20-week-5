@@ -1,0 +1,70 @@
+---
+title: "mysimplecompendium"
+output: rmarkdown::html_vignette
+bibliography: example.bib
+vignette: >
+  %\VignetteIndexEntry{mysimplecompendium}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  comment = "#>",
+  autodep = TRUE
+  )
+library(data.table)
+library(plyr)
+library(dplyr)
+```
+
+```{r setup}
+#library(mysimplecompendium)
+knitr::read_chunk("external.R")
+
+```
+
+```{r, load_tables, echo = FALSE, cache = TRUE}
+<<set-up-the-data>>
+df = data %>% filter(skin_color == "fair") %>%
+  select(name,
+         height,
+         mass,
+         homeworld) 
+```
+
+```{r starwars-plot, fig.cap = "a ggplot of stuf"}
+library(tidyverse)
+df  %>% 
+  ggplot(aes(x = height, 
+      y = mass)) +
+  geom_point()
+```
+
+We can see in Figure \@ref(fig:starwars-plot)
+
+```{r starwars-tbl}
+df %>%
+  select(name,
+         height,
+         mass,
+         homeworld) %>%
+  knitr::kable(caption = "A knitr kable table of starwars data")
+```
+
+We can see in Table \@ref(tab:starwars-tbl)
+
+```{r, my-fig, fig.cap = "My non-code figure"}
+knitr::include_graphics("figures/my-image-file.png", dpi = 200)
+```
+
+We can see in Figure \@ref(fig:my-fig)
+@barba2018terminologies says useful things
+
+about stuff [@barba2018terminologies]
+
+
+# References cited
